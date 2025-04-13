@@ -75,7 +75,7 @@ function App () {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>('playing');
-  const [keyboard, setKeyboard] = useState(generateKeyboard());
+  const [keyboard] = useState(generateKeyboard());
 
   // Função para gerar teclado virtual
   function generateKeyboard () {
