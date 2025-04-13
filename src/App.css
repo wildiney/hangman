@@ -32,12 +32,11 @@ main {
   text-align: center;
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
 }
 .imagewrapper {
   display: block;
   margin: 0 auto;
-  height: 300px;
+  height: 250px;
   width: 300px;
 }
 .imagewrapper > img {
@@ -129,7 +128,6 @@ main {
 }
 
 .wrong-letters {
-  margin-top: 1rem;
   color: #e74c3c;
   font-weight: bold;
 }
@@ -195,6 +193,8 @@ main {
 
 .game-message {
   margin-top: 0.5rem;
+  width: 100%;
+  text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
   color: #fff;

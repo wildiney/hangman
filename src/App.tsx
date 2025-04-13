@@ -50,7 +50,7 @@ const wordsByCategory = {
     'MOTO', 'BICICLETA', 'NAVIO', 'HELICOPTERO', 'PATINETE'
   ],
   ALIMENTOS: [
-    'ARROZ', 'FEIJAO', 'PIZZA', 'MACARRAO', 'PÃO',
+    'ARROZ', 'FEIJAO', 'PIZZA', 'MACARRAO', 'PAO',
     'QUEIJO', 'IOGURTE', 'SORVETE', 'BOLO', 'BISCOITO'
   ],
   NATURALEZA: [
@@ -145,15 +145,15 @@ function App () {
     <div className='container'>
       <header>
         <h1>JOGO DA FORCA</h1>
+      </header>
+
+      <main>
         {gameStatus !== 'playing' && (
           <div className='game-message'>
             {gameStatus === 'won' ? 'VOCÊ VENCEU!' : 'VOCÊ PERDEU!'}
             {gameStatus === 'lost' && <div>A palavra era: {word}</div>}
           </div>
         )}
-      </header>
-
-      <main>
         <div className='category'>Categoria: {category}</div>
 
         <div className='imagewrapper'>
