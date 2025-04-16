@@ -46,7 +46,7 @@ const wordsByCategory = {
     'COMPUTADOR', 'RELÓGIO', 'GARRAFA', 'BICICLETA', 'MOCHILA'
   ],
   TRANSPORTE: [
-    'CARRO', 'ONIBUS', 'AVIÃO', 'BARCO', 'TREM',
+    'CARRO', 'ONIBUS', 'AVIAO', 'BARCO', 'TREM',
     'MOTO', 'BICICLETA', 'NAVIO', 'HELICOPTERO', 'PATINETE'
   ],
   ALIMENTOS: [
@@ -154,7 +154,7 @@ function App () {
             {gameStatus === 'lost' && <div>A palavra era: {word}</div>}
           </div>
         )}
-        <div className='category'>Categoria: {category}</div>
+        <div className='category'>Categoria: {category.replace("_", " ")}</div>
 
         <div className='imagewrapper'>
           <img src={getHangmanImage()} alt="Forca" />
