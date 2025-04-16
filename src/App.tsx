@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { wordsByCategory } from './data/wordsByCategory'
 import './App.css'
 import layer07 from './assets/forca-01.png'
 import layer06 from './assets/forca-02.png'
@@ -8,68 +9,7 @@ import layer03 from './assets/forca-05.png'
 import layer02 from './assets/forca-06.png'
 import layer01 from './assets/forca-07.png'
 
-// Lista de palavras por categoria
-const wordsByCategory = {
-  ANIMAIS: [
-    'CACHORRO', 'GATO', 'ELEFANTE', 'GIRAFA', 'LEAO',
-    'TIGRE', 'URSO', 'MACACO', 'COELHO', 'TARTARUGA',
-    'PAPAGAIO', 'PEIXE', 'CAVALO', 'PATO', 'GALINHA',
-    'PORCO', 'VACA', 'CORUJA', 'RAPOSA', 'PINGUIM'
-  ],
-  FRUTAS: [
-    'BANANA', 'MACA', 'UVA', 'LARANJA', 'ABACAXI',
-    'MANGA', 'MELANCIA', 'MORANGO', 'KIWI', 'PERA',
-    'PESSEGO', 'AMORA', 'LIMAO', 'CEREJA', 'FRAMBOESA'
-  ],
-  PAISES: [
-    'BRASIL', 'PORTUGAL', 'ARGENTINA', 'JAPAO', 'CANADA',
-    'MEXICO', 'ITALIA', 'FRANCA', 'ESPANHA', 'ALEMANHA',
-    'CHINA', 'INDIA', 'INGLATERRA', 'AUSTRALIA', 'EGITO'
-  ],
-  PROFISSOES: [
-    'MEDICO', 'PROFESSOR', 'ENGENHEIRO', 'ADVOGADO', 'BOMBEIRO',
-    'POLICIAL', 'ARTISTA', 'CANTOR', 'VETERINARIO', 'PADEIRO',
-    'COZINHEIRO', 'JORNALISTA', 'DENTISTA', 'MOTORISTA', 'CARPINTEIRO'
-  ],
-  CORES: [
-    'VERMELHO', 'AZUL', 'VERDE', 'AMARELO', 'ROSA',
-    'ROXO', 'LARANJA', 'MARROM', 'PRETO', 'BRANCO',
-    'CINZA', 'BEGE', 'TURQUESA', 'VIOLETA', 'DOURADO'
-  ],
-  ESPORTES: [
-    'FUTEBOL', 'BASQUETE', 'VOLEI', 'NATACAO', 'CORRIDA',
-    'CICLISMO', 'GINASTICA', 'SKATE', 'JUDO', 'XADREZ'
-  ],
-  OBJETOS: [
-    'CADEIRA', 'MESA', 'LIVRO', 'BOLA', 'LAPIS',
-    'BORRACHA', 'CAMA', 'SOFA', 'CELULAR', 'TELEVISAO',
-    'COMPUTADOR', 'RELÓGIO', 'GARRAFA', 'BICICLETA', 'MOCHILA'
-  ],
-  TRANSPORTE: [
-    'CARRO', 'ONIBUS', 'AVIAO', 'BARCO', 'TREM',
-    'MOTO', 'BICICLETA', 'NAVIO', 'HELICOPTERO', 'PATINETE'
-  ],
-  ALIMENTOS: [
-    'ARROZ', 'FEIJAO', 'PIZZA', 'MACARRAO', 'PAO',
-    'QUEIJO', 'IOGURTE', 'SORVETE', 'BOLO', 'BISCOITO'
-  ],
-  NATURALEZA: [
-    'FLORESTA', 'MONTANHA', 'RIO', 'LAGO', 'MAR',
-    'CACHOEIRA', 'AREIA', 'PEDRA', 'ARVORE', 'NUVEM'
-  ],
-  INSTRUMENTOS: [
-    'VIOLAO', 'PIANO', 'BATERIA', 'FLAUTA', 'TROMPETE',
-    'GUITARRA', 'VIOLINO', 'SAXOFONE', 'PERCURSAO', 'CLARINETE'
-  ],
-  PARTES_DO_CORPO: [
-    'CABECA', 'MAO', 'PE', 'PERNA', 'BRAÇO',
-    'OLHO', 'BOCA', 'ORELHA', 'NARIZ', 'DEDOS'
-  ]
-};
-
-
 function App () {
-  // Estados do jogo
   const [category, setCategory] = useState('');
   const [word, setWord] = useState('');
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
@@ -77,7 +17,6 @@ function App () {
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>('playing');
   const [keyboard] = useState(generateKeyboard());
 
-  // Função para gerar teclado virtual
   function generateKeyboard () {
     const rows = [
       ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -113,7 +52,6 @@ function App () {
     const randomWord = words[Math.floor(Math.random() * words.length)];
     setWord(randomWord);
 
-    // Resetar o estado do jogo
     setGuessedLetters([]);
     setWrongLetters([]);
     setGameStatus('playing');
@@ -144,16 +82,10 @@ function App () {
   return (
     <div className='container'>
       <header>
-        <h1>JOGO DA FORCA</h1>
+        <h1>Hangman</h1>
       </header>
 
       <main>
-        {gameStatus !== 'playing' && (
-          <div className='game-message'>
-            {gameStatus === 'won' ? 'VOCÊ VENCEU!' : 'VOCÊ PERDEU!'}
-            {gameStatus === 'lost' && <div>A palavra era: {word}</div>}
-          </div>
-        )}
         <div className='category'>Categoria: {category.replace("_", " ")}</div>
 
         <div className='imagewrapper'>
@@ -199,9 +131,19 @@ function App () {
         </div>
 
         {gameStatus !== 'playing' && (
-          <button className='restart-button' onClick={startNewGame}>
-            Jogar Novamente
-          </button>
+          <div className="modal overlay">
+            <div className='modal content'>
+              <div className='game-message'>
+                {gameStatus === 'won' ? 'VOCÊ VENCEU!' : 'VOCÊ PERDEU!'}
+              </div>
+              <hr />
+              {gameStatus === 'lost' &&
+                <div className='answer'><p>A palavra era:<br /><strong>{word}</strong></p></div>}
+              <button className='btn lg restart-button' onClick={startNewGame}>
+                Jogar Novamente
+              </button>
+            </div>
+          </div>
         )}
       </main>
 
